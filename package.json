@@ -10,10 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@unform/core": "^2.1.6",
     "@unform/mobile": "^2.1.6",
+    "axios": "^1.5.0",
     "react": "18.2.0",
     "react-native": "0.72.4",
     "react-native-gesture-handler": "^2.13.1",
@@ -31,6 +33,7 @@
     "@react-native/eslint-config": "^0.72.2",
     "@react-native/metro-config": "^0.72.11",
     "@tsconfig/react-native": "^3.0.0",
+    "@types/axios": "^0.14.0",
     "@types/react": "^18.0.24",
     "@types/react-native-vector-icons": "^6.4.14",
     "@types/react-test-renderer": "^18.0.0",

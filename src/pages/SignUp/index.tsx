@@ -12,6 +12,7 @@ import logoImg from '../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
 import * as Yup from 'yup'
 import getValidationErrors from '../../utils/getValidationErrors'
+import api from '../../services/api'
 
 interface SignUpFormData {
     name: string
@@ -39,23 +40,22 @@ const SignUp = () => {
                 abortEarly: false,
             })
 
-            // await signIn({
-            //     email: data.email,
-            //     password: data.password
-            // })
+            await api.post('/users', data)
 
-            // navigate('/dashboard')
+            Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer login na aplicação.')
+
+            goBack()
         } catch(err) {
             if(err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err as Yup.ValidationError)
-                
                 formRef.current?.setErrors(errors)
                 return
             }
+            console.log(err)
 
             Alert.alert(
-                'Erro na autenticação', 
-                'Ocorreu um erro ao fazer login, cheque as credenciais.'
+                'Erro no cadastro', 
+                'Ocorreu um erro ao fazer cadastro, tente novamente.'
             )
         }
     }, [])

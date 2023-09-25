@@ -14,6 +14,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { FormHandles } from '@unform/core'
 import getValidationErrors from '../../utils/getValidationErrors'
 
+import { useAuth } from '../../hooks/auth'
+
 interface SignInFormData {
   email: string
   password: string
@@ -23,6 +25,9 @@ const SignIn = () => {
     const formRef = useRef<FormHandles>(null)
     const passwordInputRef = useRef<TextInput>(null)
     const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>()
+
+    const { signIn, user } = useAuth()
+    console.log('user', user)
 
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         try {
@@ -36,12 +41,10 @@ const SignIn = () => {
                 abortEarly: false,
             })
 
-            // await signIn({
-            //     email: data.email,
-            //     password: data.password
-            // })
-
-            // navigate('/dashboard')
+            await signIn({
+                email: data.email,
+                password: data.password
+            })
         } catch(err) {
             if(err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err as Yup.ValidationError)
@@ -56,7 +59,7 @@ const SignIn = () => {
                 'Ocorreu um erro ao fazer login, cheque as credenciais.'
             )
         }
-    }, [])
+    }, [signIn])
     
     return (
         <>

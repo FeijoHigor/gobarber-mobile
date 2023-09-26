@@ -26,8 +26,7 @@ const SignIn = () => {
     const passwordInputRef = useRef<TextInput>(null)
     const { navigate } = useNavigation<NativeStackNavigationProp<ParamListBase>>()
 
-    const { signIn, user } = useAuth()
-    console.log('user', user)
+    const { signIn } = useAuth()
 
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         try {
@@ -46,13 +45,12 @@ const SignIn = () => {
                 password: data.password
             })
         } catch(err) {
+            console.log('errorrrr', err)
             if(err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err as Yup.ValidationError)
-                
                 formRef.current?.setErrors(errors)
                 return
             }
-
 
             Alert.alert(
                 'Erro na autenticação', 
